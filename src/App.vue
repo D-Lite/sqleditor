@@ -1,26 +1,54 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="font-sans antialiased h-screen">
+    <div>
+    <NavBar> </NavBar>
+    </div>
+    <div id="main" class="relative  md:flex">
+      <SideNav/> <Section/>
+    </div>
+  </div>
 </template>
 
+
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import NavBar from './components/NavBar.vue'
+import Section from './components/Section'
+import SideNav from './components/SideNav.vue'
+
+import axios from "axios"
+// import data from "./../public/customers.json"
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    NavBar, 
+    SideNav,
+    Section,  
+  },
+  data: function() {
+    return {
+      results: []
+    }
+  },
+  mounted() {
+    // let url = 'https://api.enye.tech/v1/challenge/records';
+    let url = 'customers.csv';
+    axios.get(url)
+    .then((response) => {
+      // alert(response.data)
+      console.log(response)
+    }).catch((err) => {
+        console.log(err);
+        alert(err);
+    });    
+  },
+  methods() {
+    
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
